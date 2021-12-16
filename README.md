@@ -28,6 +28,5 @@ The basic parameters can be assigned based on the following explanation of moa c
 		// ** -e (FadingFactorEachClassPerformanceEvaluator -a 0.99) - indicates the
 		// performance evaluator. In this case
 		// the fading factor evaluator with fading factor value 0.99
-		// ** -d results/neutronRes.csv - indicates the output file (recall that alfa
-		// and beta are integers!!)
+		// ** -d results/neutronRes.csv - indicates the output file 
 
