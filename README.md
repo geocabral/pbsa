@@ -17,15 +17,24 @@ EvaluatePrequentialPBSA -l (meta.PBSA.PBSA -i 15 -s 20 -t 0.99 -w 90 -p 100;0.4;
 where the hyperparameters fed to the PBSA method are:
 
 -i is the index (column) of the timestamp in the dataset. Indices start with 0. Therefore, if the timestamp is in the second column of the dataset file, its index is 1.
+
 -s is the ensemble size used for the base learning algorithm, which in this implementation is [ORB](https://github.com/geocabral/spdisc-icse19).
+
 -t is the time decay factor used for tracking the class size in [ORB](https://github.com/geocabral/spdisc-icse19).
+
 -w is the waiting time in days used for obtaining the label of software changes.
+
 -p are the hyperparameters of the base learner [ORB](https://github.com/geocabral/spdisc-icse19).
+
 -a are the hyperparameters percentageDeviationFromTh;alfa;beta of the PBSA approach. Warning: alfa and beta must be entered as integers!
 
 and the parameters of the MOA framework are:
+
 -l the machine learning algorithm to be used.
+
 -s (ArffFileStream -f <path to dataset> -c <class label index>) is the path to the dataset in arff format, with -c indicating the index of the class label in the dataset file.
+
 -e (FadingFactorEachClassPerformanceEvaluator -a <fading factor>) is the performance evaluator to be used, with -a indicating the fading factor to be adopted. 
--d is the path to the output file where the results of the experiments will be saved
+
+-d is the path to the output file where the results of the experiments will be saved.
 
