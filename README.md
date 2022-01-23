@@ -74,4 +74,4 @@ The commit_type attribute receives one of the four values (0 - CLEAN), (1 - BUG_
 
 Notice that all these commits (examples) will imediately used for testing (except when commit_type = 3).
 
-IMPORTANT: the assignement of the commit type is performed as dataset pre-processing and the processed dataset is then given as input to the method.
+IMPORTANT: the assignement of the commit type is performed as dataset pre-processing and the resulting dataset is then given as input to the method.
