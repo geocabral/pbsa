@@ -14,8 +14,7 @@ EvaluatePrequentialPBSA -l (meta.PBSA.PBSA -i 15 -s 20 -t 0.99 -w 90 -p 100;0.4;
 				-d results/neutronRes.csv 
 ```			
 
-**where the hyperparameters fed to the PBSA method are:
-**
+**where the hyperparameters fed to the PBSA method are:**
 
 -i is the index (column) of the timestamp in the dataset. Indices start with 0. Therefore, if the timestamp is in the second column of the dataset file, its index is 1.
 
@@ -29,8 +28,7 @@ EvaluatePrequentialPBSA -l (meta.PBSA.PBSA -i 15 -s 20 -t 0.99 -w 90 -p 100;0.4;
 
 -a are the hyperparameters percentageDeviationFromTh;alfa;beta of the PBSA approach. Warning: alfa and beta must be entered as integers!
 
-**and the parameters of the MOA framework are:
-**
+**and the parameters of the MOA framework are:**
 
 -l the machine learning algorithm to be used.
 
