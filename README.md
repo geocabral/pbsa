@@ -73,3 +73,5 @@ The commit_type attribute receives one of the four values (0 - CLEAN), (1 - BUG_
 3. If a commit is defect-inducing and took t days s.t. t <= w it will have the commit_type = 2. This commit will generate a defect-inducing commit to train the classifier t days in the future. This replicated defect-inducing commit will have commit_type = 3. 
 
 Notice that all these commits (examples) will imediately used for testing (except when commit_type = 3).
+
+IMPORTANT: the assignement of the commit type is performed as dataset pre-processing and the processed dataset is then given as input to the method.
