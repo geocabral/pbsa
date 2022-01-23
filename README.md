@@ -12,7 +12,7 @@ EvaluatePrequentialPBSA -l (meta.PBSA.PBSA -i 15 -s 20 -t 0.99 -w 90 -p 100;0.4;
 				-s (ArffFileStream -f (datasets/neutron.arff) -c 15) 
 				-e (FadingFactorEachClassPerformanceEvaluator -a 0.99) -f 1 
 				-d results/neutronRes.csv 
-```{r}				
+```			
 
 where the hyperparameters fed to the PBSA method are:
 
