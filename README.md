@@ -71,7 +71,7 @@ The author_date_unix_timestamp is important because we have to reproduce the ver
 The commit_type attribute receives one of the four values (0 - CLEAN), (1 - BUG_NOT_DISCOVERED_W_DAYS), (2 - BUG_DISCOVERED_W_DAYS) and (3 - BUG_FOUND). In order to compute these values for each commit, one has to know, in the original dataset, how many days a defect-inducing commit took to be fixed. Based on that, the processed dataset will be formatted as follows:
 
 1. If a commit is clean, it receives commit_type = 0
-2. If a commit is defect-inducing and took t days s.t. t > w it will have the commit_type = 1. This commit will generate a clean labeled commit to train the classifier w days in the future and a defect-inducing commit to train the classifier t days in the future. This replicated defect-inducing commit will have commit_type = 3. The former clean labeled one will be processed by a pool by the method and does not need to have this attribute assigned.
+2. If a commit is defect-inducing and took t days s.t. t > w it will have the commit_type = 1. This commit will generate a clean labeled example to train the classifier w days in the future and a defect-inducing labeled example to train the classifier t days in the future. This defect-inducing example will have commit_type = 3. The former clean labeled one will be processed by a pool by the method and does not need to have this attribute assigned.
 3. If a commit is defect-inducing and took t days s.t. t <= w it will have the commit_type = 2. This commit will generate a defect-inducing commit to train the classifier t days in the future. This replicated defect-inducing commit will have commit_type = 3. 
 
 Notice that all these commits (examples) will imediately used for testing (except when commit_type = 3).
