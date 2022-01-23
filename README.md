@@ -1,32 +1,29 @@
 # pbsa
- Source code for the algorithm Prediction Based Sampling Adjustment designed for online Just-in-time Software Defect Prediction and considering the verification latency.
+Source code for the algorithm Prediction Based Sampling Adjustment (PBSA) designed for online Just-in-time Software Defect Prediction and considering the verification latency.
  
-The main class is placed at moa.experiment.RunPBSA.java. Inside this class there is plenty of information for executing a sample experiment. 
+The implamentation is based on the Massive Online Analysis ([MOA](https://moa.cms.waikato.ac.nz/)) framework, Release 2018.06, which is included in this repository following the GNU GENERAL PUBLIC LICENSE Version 3.
+ 
+The main class is placed at scr/moa/experiment/RunPBSA.java. The evaluation method EvaluatePrequentialPBSA runs PBSA and evaluates its predictive performance in a prequential manner while taking verification latency into account.
 
-It is also strongly recommended to become familiar with the datasets structure in order to apply the algorithm to your own datasets.
+An example of command line to run the code is the following:
 
-The basic parameters can be assigned based on the following explanation of moa command:
+EvaluatePrequentialPBSA -l (meta.PBSA.PBSA -i 15 -s 20 -t 0.99 -w 90 -p 100;0.4;10;12;1.5;3 -a 0.25;5;2) 
+				-s (ArffFileStream -f (datasets/neutron.arff) -c 15) 
+				-e (FadingFactorEachClassPerformanceEvaluator -a 0.99) -f 1 
+				-d results/neutronRes.csv 
 
-		// ** EvaluatePrequentialPBSA - the evaluation method. In this case, the
-		// evaluator considers the verification latency (i.e. the delay for obtaining
-		// the true commit labels)
-		
-		//The complete command is as follows:
-		// EvaluatePrequentialPBSA -l (meta.PBSA.PBSA -i 15 -t 0.99 -w 90 -p 100;0.4;10;12;1.5;3 -s 20 -a
-		// 0.25;5;2) -s (ArffFileStream -f (datasets/neutron.arff) -c 15) -e
-		// (FadingFactorEachClassPerformanceEvaluator -a 0.99) -f 1 -d
-		// results/neutronRes.csv- the PBSA learner where:
+where the hyperparameters fed to the PBSA method are:
 
-		// (1) "-s 20" is the ensemble size
-		// (2) "-t 0.99" The time decay factor for updating the class size
-		// (3) "-w 90" is the waiting time for obtaining the true commit label
-		// (4) "-p 100;0.4;10;12;1.5;3 - the parameters for the ORB.
-		// (5) "-a percentageDeviationFromTh;alfa;beta - parameters for PBSA (recall
-		// that alfa and beta are integers!!)
-		// ** -s (ArffFileStream -f (datasets/neutron.arff) -c 15) - indicates the
-		// dataset where the class label is in index 15
-		// ** -e (FadingFactorEachClassPerformanceEvaluator -a 0.99) - indicates the
-		// performance evaluator. In this case
-		// the fading factor evaluator with fading factor value 0.99
-		// ** -d results/neutronRes.csv - indicates the output file 
+-i is the index (column) of the timestamp in the dataset. Indices start with 0. Therefore, if the timestamp is in the second column of the dataset file, its index is 1.
+-s is the ensemble size used for the base learning algorithm, which in this implementation is [ORB](https://github.com/geocabral/spdisc-icse19).
+-t is the time decay factor used for tracking the class size in [ORB](https://github.com/geocabral/spdisc-icse19).
+-w is the waiting time in days used for obtaining the label of software changes.
+-p are the hyperparameters of the base learner [ORB](https://github.com/geocabral/spdisc-icse19).
+-a are the hyperparameters percentageDeviationFromTh;alfa;beta of the PBSA approach. Warning: alfa and beta must be entered as integers!
+
+and the parameters of the MOA framework are:
+-l the machine learning algorithm to be used.
+-s (ArffFileStream -f <path to dataset> -c <class label index>) is the path to the dataset in arff format, with -c indicating the index of the class label in the dataset file.
+-e (FadingFactorEachClassPerformanceEvaluator -a <fading factor>) is the performance evaluator to be used, with -a indicating the fading factor to be adopted. 
+-d is the path to the output file where the results of the experiments will be saved
 
