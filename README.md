@@ -40,4 +40,36 @@ EvaluatePrequentialPBSA -l (meta.PBSA.PBSA -i 15 -s 20 -t 0.99 -w 90 -p 100;0.4;
 
 **Datasets:**
 
-A number of datasets used in experiments with PBSA can be found in the folder datasets. The format of the datasets is as follows.
+A number of datasets used in experiments with PBSA can be found in the folder datasets. The file format is the WEKA ARFF, the attributes of the used datasets have the following types:
+
+```{r}
+@attribute fix numeric
+@attribute ns numeric
+@attribute nd numeric
+@attribute nf numeric
+@attribute entrophy numeric
+@attribute la numeric
+@attribute ld numeric
+@attribute lt numeric
+@attribute ndev numeric
+@attribute age numeric
+@attribute nuc numeric
+@attribute exp numeric
+@attribute rexp numeric
+@attribute sexp numeric
+@attribute contains_bug {False,True}
+@attribute author_date_unix_timestamp numeric
+@attribute commit_type numeric
+```
+
+From these attributes, the two last ones are intended to control the method operation. 
+
+The author_date_unix_timestamp is important because we have to reproduce the verification latency phenomenon. 
+
+The commit_type attribute receives one of the four values (0 - CLEAN), (1 - BUG_NOT_DISCOVERED_W_DAYS), (2 - BUG_DISCOVERED_W_DAYS) and (3 - BUG_FOUND). In order to compute these values for each commit, one has to know, in the original dataset, how many days a defect-inducing commit took to be fixed. Based on that, the processed dataset will be formatted as follows:
+
+1. If a commit is clean, it receives commit_type = 1
+2. If a commit is defect-inducing and took t days s.t. t > w. This commit will generate a clean labeled commit to train the classifier w days in the future and a defect-inducing commit to train the classifier t days in the future. This replicated defect-inducing commit will have commit_type = 3. The former clean labeled one will be processed by a pool by the method and does not need to have this attribute assigned.
+3. If a commit is defect-inducing and took t days s.t. t <= w. This commit will generate a defect-inducing commit to train the classifier t days in the future. This replicated defect-inducing commit will have commit_type = 3. 
+
+Notice that all these commits (examples) will imediately used for testing (except when commit_type =3).
