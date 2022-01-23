@@ -38,3 +38,6 @@ EvaluatePrequentialPBSA -l (meta.PBSA.PBSA -i 15 -s 20 -t 0.99 -w 90 -p 100;0.4;
 
 -d is the path to the output file where the results of the experiments will be saved.
 
+**Datasets:**
+
+A number of datasets used in experiments with PBSA can be found in the folder datasets. The format of the datasets is as follows.
