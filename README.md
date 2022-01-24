@@ -66,29 +66,29 @@ A number of datasets used in experiments with PBSA can be found in the folder da
 
 The commit_type attribute receives one of the four values (0 - CLEAN), (1 - BUG_NOT_DISCOVERED_W_DAYS), (2 - BUG_DISCOVERED_W_DAYS) and (3 - BUG_FOUND).
 
-The attributes above represent the dataset in the pre-processed format to be used by the PBSA. They can be generated based on: (i) the commit software metrics (first 15 attributes in the ARFF files); (ii) the timestamp the commit was submitted to the repository (*author_date_unix_timestamp*); and (iii) the number of days the bug induced by the commit took to be fixed, i.e. *days_to_fix* (in case of defect-inducing commits).
+The attributes above represent the dataset in the pre-processed format to be used by the PBSA. They can be generated based on: (i) the commit software metrics (first 14 attributes in the ARFF files); (ii) the true label of the commit (False for clean and True for defect-inducing); (iii) the timestamp the commit was submitted to the repository (*author_date_unix_timestamp*); and (iv) the number of days the bug induced by the commit took to be fixed, i.e. *days_to_fix* (in case of defect-inducing commits).
 
 For the sake of simplicity, let's call the *author_date_unix_timestamp* **adut** and *days_to_fix* of **df**. Then, the proccess of generating the pre-processed dataset in the format compatible with PBSA is as follows:
 
 ```{=latex}
 for each commit $c_{i}$:
 	if $c_{i}$ is clean:
-		//set the commit type of c_{i} to 0 and unix_timestamp to **adut**
+		Add an instance to the pre-processed dataset using: (1) $c_{i}$'s 14 software change metrics; (2) contains_bug = False; (3) *commit_type* = 0 and (4) *unix_timestamp* = **adut**. // This instance will be first used by PBSA for testing as a clean example at unix_timestamp, and then for training as a clean example at unix_timestamp + **w**, where **w** is the waiting time converted to timestamp unit.
 	else: 
 		if **df** > w:
-			//create a new commit c with: (1) the same first 14 attributes of c_{i}; (2) the *unix_imestamp* value (**adut** + **df**, where **df** is now converted to a timestamp unit); and (3) commit_type = 3
-			//create a new commit c with: (1) the same first 14 attributes of c_{i}; (2) the opposite class (i.e., clean); (3) the *unix_imestamp* value (**adut** + **w**, where **w** is converted to a timestamp unit); and (4) commit_type = 0
-			//set the commit type of c_{i} to 1
+			Add an instance to the pre-processed dataset using: (1) $c_{i}$'s 14 software change metrics; (2) contains_bug = True; (3) *unix_imestamp* = **adut** + **df**, where **df** is now converted to a timestamp unit; and (4) *commit_type* = 3. // This instance will be used by PBSA for training at *unix_imestamp*.
+			Add an instance to the pre-processed dataset using: (1) $c_{i}$'s first 14 attributes; (2) contains_bug = False; (3) *unix_imestamp* = **adut** + **w**, where **w** is converted to a timestamp unit; and (4) commit_type = 0. // This instance will be used by PBSA for training at *unix_imestamp*.
+			Add an instance to the pre-processed dataset using: (1) $c_{i}$'s 14 software change metrics; (2) contains_bug = True; (3) *unix_timestamp* = **adut**; (4) commit_type = 1. // This instance will be used by PBSA for testing at *unit_timestamp*.
 		else: //if **df** <= w
-			//create a new commit c with: (1) the same first 14 attributes of c_{i}; (2) the *unix_imestamp* value (**adut** + **df**, where **df** is now converted to a timestamp unit); and (3) commit_type = 3
-			//set the commit type of c_{i} to 2
+			Add an instance to the pre-processed dataset using: (1) $c_{i}$'s first 14 attributes; (2) contains_bug = True; (3) *unix_timestamp* = **adut** + **dt**, where **df** is converted to a timestamp unit; and (4) commit_type = 3. // This instance will be used by PBSA for training at *unix_timestamp*
+			Add an instance to the pre-processed dataset using: (1) $c_{i}$'s first 14 attributes; (2) contains_bug = True; (3) *unix_timestamp* = **adut**; and (4) commit_type = 2. // This instance will be used by PBSA for testing at *unix_timestamp*.
 			
 
 ```
 
 Once the set of commits cotanining the information necessary to be processed by the PBSA is formed, the examples must be sorted in ascending order accordingly their *unix_timestamp*. The dataset is now ready to be inserted as a data stream to the classifier.
 
-<!-- 
+<!-- OLD, INVALID:
 Originally, the gathered data from the projects contain only the 16 first software metrics attributes (notice that the processed attribute *unix_timestamp* is derived from the original attribute *author_date_unix_timestamp*). In addition, one has to obtain also for the deffect-inducing commits the number of days to fix the commit.   
 
 
