@@ -5,7 +5,7 @@ The implamentation is based on the Massive Online Analysis ([MOA](https://moa.cm
  
 The main class is placed at scr/moa/experiment/RunPBSA.java. The evaluation method EvaluatePrequentialPBSA runs PBSA and evaluates its predictive performance in a prequential manner while taking verification latency into account.
 
-The class for replicating the experiments is placed at scr/moa/experiment/RunExperimentsTSE.java. However, notice that this class uses 2 loops that start 300 threads that run in parallel. This is not the best way to conduct the experiment, specially if you have a computer cluster available. Executing 300 threads at once will probably result in memory issues.
+The class for replicating the experiments is placed at scr/moa/experiment/RunExperimentsTSE.java. However, note that this class uses 2 loops that start 300 threads that run in parallel. This is not the best way to conduct the experiment, specially if you have a computer cluster available. Executing 300 threads at once will probably result in memory issues.
 
 An example of command line to run the code is the following:
 
@@ -68,7 +68,7 @@ From these attributes, the two last ones are intended to control the method's op
 
 The commit_type attribute receives one of the four values (0 - CLEAN), (1 - BUG_NOT_DISCOVERED_W_DAYS), (2 - BUG_DISCOVERED_W_DAYS) and (3 - BUG_FOUND). One can determine these values by checking, in the original dataset, how many days a defect-inducing commit took to be fixed. Based on that, the processed dataset should be formatted as follows for use with PBSA:
 
-* If a commit is clean, it should be listed in the file with commit_type = 0. The PBSA approach will then use this commit for training as a clean example w days after the author unix timestamp.
+* If a commit is clean, it should be listed in the file with commit_type = 0. The PBSA approach will then use this commit as a clean example for testing at the author unix timestamp and for training w days after the author unix timestamp.
 * If a commit is defect-inducing and its label took t > w days to arrive, it should be listed twice in the file as follows:
 	- It should be listed once with commit_type = 1. PBSA will then use this commit for training as a clean labeled example w days after the author unix timestamp.
 	- It should be listed once again with commit_type = 3. PBSA will then use this commit for training as a defect-inducing labeled example t days after the author unix timestamp. 
