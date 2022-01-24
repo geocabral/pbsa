@@ -71,12 +71,12 @@ The attributes above represent the dataset already pre-processed in order to be 
 Therefore, for the sake of simplicity, let's call the *author_date_unix_timestamp* **adut** and *days_to_fix* of **df**. Then, the proccess of generating a dataset compatible to the PBSA learner is as follows:
 
 ```{=latex}
-for each commit $c_i$:
+for each commit $c_{i}$:
 	if $c_{i}$ is clean:
 		//set the commit type of c_{i} to 0 and unix_timestamp to **adut**
 	else: 
 		if **df** > w:
-			//create a new commit c with: (1) the same first 14 attributes of {c_{i}}; (2) the *unix_imestamp* value (**adut** + **df**, where **df** is now converted to a timestamp unit); and (3) commit_type = 3
+			//create a new commit c with: (1) the same first 14 attributes of c_{i}; (2) the *unix_imestamp* value (**adut** + **df**, where **df** is now converted to a timestamp unit); and (3) commit_type = 3
 			//create a new commit c with: (1) the same first 14 attributes of c_{i}; (2) the opposite class (i.e., clean); (3) the *unix_imestamp* value (**adut** + **w**, where **w** is converted to a timestamp unit); and (4) commit_type = 0
 			//set the commit type of c_{i} to 1
 		else: //if **df** <= w
