@@ -86,7 +86,7 @@ for each commit $c_{i}$:
 
 ```
 
-Once the set of commits cotanining the information necessary to be processed by the PBSA is formed, the examples must be sorted in ascending order accordingly their *unix_timestamp*. The dataset is now ready to be inserted as a data stream to the classifier.
+Once the set of commits containing the information necessary to be processed by the PBSA is formed, the examples must be sorted in ascending order according to their *unix_timestamp*. The dataset is now ready to be used as a data stream by the classifier.
 
 <!-- 
 Originally, the gathered data from the projects contain only the 16 first software metrics attributes (notice that the processed attribute *unix_timestamp* is derived from the original attribute *author_date_unix_timestamp*). In addition, one has to obtain also for the deffect-inducing commits the number of days to fix the commit.   
