@@ -5,7 +5,7 @@ The implamentation is based on the Massive Online Analysis ([MOA](https://moa.cm
  
 The main class is placed at scr/moa/experiment/RunPBSA.java. The evaluation method EvaluatePrequentialPBSA runs PBSA and evaluates its predictive performance in a prequential manner while taking verification latency into account.
 
-The class for replicating the experiments is placed at scr/moa/experiment/RunExperimentsTSE.java. However, note that this class uses 2 loops that start 300 threads that run in parallel. This is not the best way to conduct the experiment, specially if you have a computer cluster available. Executing 300 threads at once will probably result in memory issues.
+The script for replicating the experiments is placed at scr/moa/experiment/RunExperimentsTSE.java. However, note that this class uses 2 loops that start 300 threads that run in parallel. This is not the best way to conduct the experiment, specially if you have a computer cluster available. Executing 300 threads at once will probably result in memory issues.
 
 An example of command line to run the code is the following:
 
