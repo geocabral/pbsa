@@ -77,11 +77,11 @@ for each commit $c_{i}$:
 	else: 
 		if **df** > w:
 			Add an instance to the pre-processed dataset using: (1) $c_{i}$'s 14 software change metrics; (2) contains_bug = True; (3) *unix_imestamp* = **adut** + **df**, where **df** is now converted to a timestamp unit; and (4) *commit_type* = 3. // This instance will be used by PBSA for training at *unix_imestamp*.
-			Add an instance to the pre-processed dataset using: (1) $c_{i}$'s first 14 attributes; (2) contains_bug = False; (3) *unix_imestamp* = **adut** + **w**, where **w** is converted to a timestamp unit; and (4) commit_type = 0. // This instance will be used by PBSA for training at *unix_imestamp*.
+			Add an instance to the pre-processed dataset using: (1) $c_{i}$'s 14 software change metrics; (2) contains_bug = False; (3) *unix_imestamp* = **adut** + **w**, where **w** is converted to a timestamp unit; and (4) commit_type = 0. // This instance will be used by PBSA for training at *unix_imestamp*.
 			Add an instance to the pre-processed dataset using: (1) $c_{i}$'s 14 software change metrics; (2) contains_bug = True; (3) *unix_timestamp* = **adut**; (4) commit_type = 1. // This instance will be used by PBSA for testing at *unit_timestamp*.
 		else: //if **df** <= w
-			Add an instance to the pre-processed dataset using: (1) $c_{i}$'s first 14 attributes; (2) contains_bug = True; (3) *unix_timestamp* = **adut** + **dt**, where **df** is converted to a timestamp unit; and (4) commit_type = 3. // This instance will be used by PBSA for training at *unix_timestamp*
-			Add an instance to the pre-processed dataset using: (1) $c_{i}$'s first 14 attributes; (2) contains_bug = True; (3) *unix_timestamp* = **adut**; and (4) commit_type = 2. // This instance will be used by PBSA for testing at *unix_timestamp*.
+			Add an instance to the pre-processed dataset using: (1) $c_{i}$'s 14 software change metrics; (2) contains_bug = True; (3) *unix_timestamp* = **adut** + **dt**, where **df** is converted to a timestamp unit; and (4) commit_type = 3. // This instance will be used by PBSA for training at *unix_timestamp*
+			Add an instance to the pre-processed dataset using: (1) $c_{i}$'s 14 software change metrics; (2) contains_bug = True; (3) *unix_timestamp* = **adut**; and (4) commit_type = 2. // This instance will be used by PBSA for testing at *unix_timestamp*.
 			
 
 ```
