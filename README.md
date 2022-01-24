@@ -60,9 +60,40 @@ A number of datasets used in experiments with PBSA can be found in the folder da
 @attribute rexp numeric
 @attribute sexp numeric
 @attribute contains_bug {False,True}
-@attribute author_date_unix_timestamp numeric
+@attribute unix_timestamp numeric
 @attribute commit_type numeric
 ```
+
+The commit_type attribute receives one of the four values (0 - CLEAN), (1 - BUG_NOT_DISCOVERED_W_DAYS), (2 - BUG_DISCOVERED_W_DAYS) and (3 - BUG_FOUND).
+
+The attributes above represent the dataset already pre-processed in order to be properly used by the classifier. In short, the original dataset file must contains: (i) the commit software metrics (first 15 attributes in the ARFF files); (ii) the timestamp it was submitted to the repository (*author_date_unix_timestamp*); and (iii) the number of days it took to be fixed, i.e. *days_to_fix* (in case of defect-inducing commits).
+
+Therefore, for the sake of simplicity, let's call the *author_date_unix_timestamp* **adut** and *days_to_fix* of **df**. Then, the proccess of generating a dataset compatible to the PBSA learner is as follows:
+
+```{=latex}
+for each commit $c_i$:
+	if $c_{i}$ is clean:
+		//set the commit type of c_{i} to 0 and unix_timestamp to **adut**
+	else: 
+		if **df** > w:
+			//create a new commit c with: (1) the same first 14 attributes of {c_{i}}; (2) the *unix_imestamp* value (**adut** + **df**, where **df** is now converted to a timestamp unit); and (3) commit_type = 3
+			//create a new commit c with: (1) the same first 14 attributes of c_{i}; (2) the opposite class (i.e., clean); (3) the *unix_imestamp* value (**adut** + **w**, where **w** is converted to a timestamp unit); and (4) commit_type = 0
+			//set the commit type of c_{i} to 1
+		else: //if **df** <= w
+			//create a new commit c with: (1) the same first 14 attributes of c_{i}; (2) the *unix_imestamp* value (**adut** + **df**, where **df** is now converted to a timestamp unit); and (3) commit_type = 3
+			//set the commit type of c_{i} to 2
+			
+
+```
+
+Once the set of commits cotanining the information necessary to be processed by the PBSA is formed, the examples must be sorted in ascending order accordingly their *unix_timestamp*. The dataset is now ready to be inserted as a data stream to the classifier.
+
+<!-- 
+Originally, the gathered data from the projects contain only the 16 first software metrics attributes (notice that the processed attribute *unix_timestamp* is derived from the original attribute *author_date_unix_timestamp*). In addition, one has to obtain also for the deffect-inducing commits the number of days to fix the commit.   
+
+
+author_date_unix_timestamp
+
 
 From these attributes, the two last ones are intended to control the method's operation. The author_date_unix_timestamp is particularly important to reproduce the verification latency phenomenon. 
 
@@ -77,3 +108,4 @@ The commit_type attribute receives one of the four values (0 - CLEAN), (1 - BUG_
 	- It should be listed once again with commit_type = 3. PBSA will then use this commit for training as a defect-inducing labeled example t days after the author unix timestamp. 
 
 IMPORTANT: the commits need to be listed in the dataset in ascending order of author unix timestamp.
+ -->
