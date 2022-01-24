@@ -66,9 +66,9 @@ A number of datasets used in experiments with PBSA can be found in the folder da
 
 The commit_type attribute receives one of the four values (0 - CLEAN), (1 - BUG_NOT_DISCOVERED_W_DAYS), (2 - BUG_DISCOVERED_W_DAYS) and (3 - BUG_FOUND).
 
-The attributes above represent the dataset already pre-processed in order to be properly used by the classifier. In short, the original dataset file must contains: (i) the commit software metrics (first 15 attributes in the ARFF files); (ii) the timestamp it was submitted to the repository (*author_date_unix_timestamp*); and (iii) the number of days it took to be fixed, i.e. *days_to_fix* (in case of defect-inducing commits).
+The attributes above represent the dataset in the pre-processed format to be used by the PBSA. They can be generated based on: (i) the commit software metrics (first 15 attributes in the ARFF files); (ii) the timestamp the commit was submitted to the repository (*author_date_unix_timestamp*); and (iii) the number of days the bug induced by the commit took to be fixed, i.e. *days_to_fix* (in case of defect-inducing commits).
 
-Therefore, for the sake of simplicity, let's call the *author_date_unix_timestamp* **adut** and *days_to_fix* of **df**. Then, the proccess of generating a dataset compatible to the PBSA learner is as follows:
+For the sake of simplicity, let's call the *author_date_unix_timestamp* **adut** and *days_to_fix* of **df**. Then, the proccess of generating the pre-processed dataset in the format compatible with PBSA is as follows:
 
 ```{=latex}
 for each commit $c_{i}$:
@@ -86,7 +86,7 @@ for each commit $c_{i}$:
 
 ```
 
-Once the set of commits containing the information necessary to be processed by the PBSA is formed, the examples must be sorted in ascending order according to their *unix_timestamp*. The dataset is now ready to be used as a data stream by the classifier.
+Once the set of commits cotanining the information necessary to be processed by the PBSA is formed, the examples must be sorted in ascending order accordingly their *unix_timestamp*. The dataset is now ready to be inserted as a data stream to the classifier.
 
 <!-- 
 Originally, the gathered data from the projects contain only the 16 first software metrics attributes (notice that the processed attribute *unix_timestamp* is derived from the original attribute *author_date_unix_timestamp*). In addition, one has to obtain also for the deffect-inducing commits the number of days to fix the commit.   
