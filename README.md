@@ -70,10 +70,10 @@ The commit_type attribute receives one of the four values (0 - CLEAN), (1 - BUG_
 
 * If a commit is clean, it should be listed in the file with commit_type = 0. The PBSA approach will then use this commit for training as a clean example w days after the author unix timestamp.
 * If a commit is defect-inducing and its label took t > w days to arrive, it should be listed twice in the file as follows:
-1. It should be listed once with commit_type = 1. PBSA will then use this commit for training as a clean labeled example w days after the author unix timestamp.
-2. It should be listed once again with commit_type = 3. PBSA will then use this commit for training as a defect-inducing labeled example t days after the author unix timestamp. 
+	- It should be listed once with commit_type = 1. PBSA will then use this commit for training as a clean labeled example w days after the author unix timestamp.
+	- It should be listed once again with commit_type = 3. PBSA will then use this commit for training as a defect-inducing labeled example t days after the author unix timestamp. 
 * If a commit is defect-inducing and its label took t <= w days to arrive, it should be listed twice in the file as follows:
-1. It should be listed once with commit_type = 2. This will alert PBSA of the fact that this commit will generate a training example before the end of the waiting time. 
-2. It should be listed once again with commit_type = 3. PBSA will then use this commit for training as a defect-inducing labeled example t days after the author unix timestamp. 
+	- It should be listed once with commit_type = 2. This will alert PBSA of the fact that this commit will generate a training example before the end of the waiting time. 
+	- It should be listed once again with commit_type = 3. PBSA will then use this commit for training as a defect-inducing labeled example t days after the author unix timestamp. 
 
 IMPORTANT: the commits need to be listed in the dataset in ascending order of author unix timestamp.
