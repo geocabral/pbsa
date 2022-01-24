@@ -1,5 +1,5 @@
-# pbsa
-Source code for the algorithm Prediction Based Sampling Adjustment (PBSA) designed for online Just-in-time Software Defect Prediction and considering the verification latency.
+# Prediction Based Sampling Adjustment (PBSA)
+Source code for the algorithm PBSA designed for online Just-in-time Software Defect Prediction and considering the verification latency.
  
 The implamentation is based on the Massive Online Analysis ([MOA](https://moa.cms.waikato.ac.nz/)) framework, Release 2018.06, which is included in this repository following the GNU GENERAL PUBLIC LICENSE Version 3.
  
